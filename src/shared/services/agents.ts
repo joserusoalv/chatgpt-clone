@@ -1,4 +1,4 @@
-import { Injectable, signal } from '@angular/core';
+import { computed, Injectable, signal } from '@angular/core';
 import { Agent } from '../models/agent';
 
 @Injectable({ providedIn: 'root' })
@@ -8,11 +8,17 @@ export class Agents {
     { id: 'code', name: 'Coder', model: 'sonnet-3.5', temperature: 0.2 },
   ]);
   #currentId = signal<string>('default');
-  list = () => this.#agents();
-  currentId = () => this.#currentId();
+
+  list = computed(() => this.#agents());
+  currentId = computed(() => this.#currentId());
+
   setCurrent(id: string) {
     this.#currentId.set(id);
-    localStorage.setItem('agents', JSON.stringify({ agents: this.#agents(), currentId: this.#currentId() }));
+
+    localStorage.setItem(
+      'agents',
+      JSON.stringify({ agents: this.#agents(), currentId: this.#currentId() })
+    );
   }
   startNewSession() {
     localStorage.removeItem('chat:last');

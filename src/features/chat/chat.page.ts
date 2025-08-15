@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { MessageList } from './message-list';
-import { MessageInput } from './message-input';
-import { ChatToolbar } from './chat-toolbar';
 import { Chat } from '../../shared/services/chat';
+import { ChatToolbar } from './chat-toolbar';
+import { MessageInput } from './message-input';
+import { MessageList } from './message-list';
 
 @Component({
   standalone: true,
@@ -12,15 +12,25 @@ import { Chat } from '../../shared/services/chat';
   template: `
     <section class="h-full grid grid-rows-[auto_1fr_auto]">
       <chat-toolbar (cancel)="cancel()" />
-      <message-list [messages]="_messages" [draft]="_draft" class="min-h-0" />
+      <message-list
+        [messages]="_messages()"
+        [draft]="_draft()"
+        class="min-h-0"
+      />
       <message-input (send)="_send($event)" />
     </section>
-  `
+  `,
 })
 export class ChatPage {
   #chat = inject(Chat);
-  protected _messages = this.#chat.messages();
-  protected _draft = this.#chat.draft();
-  protected _send(text: string) { this.#chat.send(text); }
-  protected cancel() { this.#chat.cancel(); }
+
+  protected _messages = this.#chat.messages;
+  protected _draft = this.#chat.draft;
+
+  protected _send(text: string) {
+    this.#chat.send(text);
+  }
+  protected cancel() {
+    this.#chat.cancel();
+  }
 }

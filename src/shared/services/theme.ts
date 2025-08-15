@@ -6,9 +6,11 @@ export class Theme {
   applyTheme() {
     const doc = document.documentElement;
     const theme = this.#settings.theme();
-    const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)').matches;
+    const prefersDark = window.matchMedia?.(
+      '(prefers-color-scheme: dark)'
+    ).matches;
     const isDark = theme === 'dark' || (theme === 'system' && prefersDark);
-    doc.dataset.theme = isDark ? 'dark' : 'light';
+    doc.dataset['theme'] = isDark ? 'dark' : 'light';
     doc.style.setProperty('--font-scale', String(this.#settings.fontScale()));
   }
 }

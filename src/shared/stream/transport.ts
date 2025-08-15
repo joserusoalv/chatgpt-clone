@@ -5,4 +5,7 @@ export interface StreamOptions {
   onDone: () => void;
   onError: (err: unknown) => void;
 }
-export interface Transport { start(opts: StreamOptions): void | Promise<void>; }
+
+export interface Transport {
+  start(opts: StreamOptions): void | Promise<void>;
+}
