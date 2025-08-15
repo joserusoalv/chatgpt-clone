@@ -7,11 +7,11 @@ import { provideRouter } from '@angular/router';
 
 import { provideHttpClient } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { APP_ROUTES } from './app.routes';
+import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideRouter(APP_ROUTES),
+    provideRouter(routes),
     provideHttpClient(),
     provideAnimations(),
     provideZonelessChangeDetection(),

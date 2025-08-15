@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { AppShell } from './layout/app-shell';
+import { ChatShell } from './features/chat/chat-shell';
 
 @Component({
   selector: 'app-root',
-  imports: [AppShell],
-  template: '<app-shell/>',
+  imports: [ChatShell],
+  template: '<chat-shell/>',
 })
 export class App {}

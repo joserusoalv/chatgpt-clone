@@ -5,23 +5,23 @@ import {
   inject,
 } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { Theme } from '../core/services/theme';
-import { Sidebar } from './sidebar';
+import { Theme } from '../../core/services/theme';
+import { Sidebar } from './sidebar/sidebar';
 
 @Component({
-  selector: 'app-shell',
+  selector: 'chat-shell',
   standalone: true,
   imports: [RouterOutlet, Sidebar],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="app-shell" data-testid="app-shell">
+    <div class="chat-shell" data-testid="chat-shell">
       <aside class="sidebar"><app-sidebar /></aside>
       <main class="content"><router-outlet /></main>
     </div>
   `,
   styles: [
     `
-      .app-shell {
+      .chat-shell {
         display: grid;
         grid-template-columns: 300px 1fr;
         height: 100dvh;
@@ -37,8 +37,9 @@ import { Sidebar } from './sidebar';
     `,
   ],
 })
-export class AppShell {
+export class ChatShell {
   #theme = inject(Theme);
+
   constructor() {
     effect(() => this.#theme.applyTheme());
   }

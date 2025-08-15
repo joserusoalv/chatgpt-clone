@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { Chat } from '../../core/services/chat';
+import { Chat } from '../../../core/services/chat';
 import { ChatToolbar } from './components/chat-toolbar';
 import { MessageInput } from './components/message-input';
 import { MessageList } from './components/message-list';
