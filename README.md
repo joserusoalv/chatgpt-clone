@@ -1,59 +1,72 @@
-# ChatgptClone
+# ChatGPT Clone — Angular 20 (standalone, OnPush, zoneless-friendly)
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.0.0.
+Plantilla base con:
+- Standalone components y **OnPush**.
+- Convención Angular 20: **sin sufijos** `.component` ni `Component/Service` en nombres/clases.
+- **Signals** y `output()`.
+- **Streaming** con flag: `SSE` (EventSource) | `Fetch` (ReadableStream) | `mock`.
+- **Markdown** con `marked` + `highlight.js` + botón **Copiar** en cada bloque.
+- **Electron** (dev/prod), **auto-update** opcional y **seguridad** reforzada.
+- **CI** (GitHub Actions) para releases multi-OS.
 
-## Development server
+> Este ZIP contiene el **esqueleto** (`src/`, `server/`, `electron/`, workflow, etc.). Úsalo sobre un proyecto Angular 20 creado con CLI.
 
-To start a local development server, run:
-
-```bash
-ng serve
-```
-
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Inicio rápido
 
 ```bash
-ng generate component component-name
+npm i
+npm run dev     # levanta server, Angular y Electron
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
+### Crear el proyecto Angular 20 (si partes de cero)
 ```bash
-ng generate --help
+npm i -g @angular/cli@^20
+ng new chatgpt-clone --standalone --routing=false --style=css
+# Copia los contenidos de este ZIP sobre tu proyecto
 ```
 
-## Building
-
-To build the project run:
-
+### Dependencias clave
 ```bash
-ng build
+npm i marked highlight.js
+npm i -D electron concurrently wait-on cross-env electron-builder electron-updater
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+### Proxy a backend dev
+`proxy.conf.json` (incluido) enruta `/api` → `http://localhost:3000`
 
-## Running unit tests
+### Streaming (flag)
+`src/shared/stream/config.ts`:
+```ts
+export const STREAM_TRANSPORT: 'sse' | 'fetch' | 'mock' = 'sse';
+export const SSE_ENDPOINT = '/api/sse';      // GET ?prompt=...
+export const FETCH_ENDPOINT = '/api/stream'; // POST {prompt}
+```
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+### Electron (dev)
+- Carga `http://localhost:4200` (Angular dev server) en la ventana de escritorio.
+- Producción: `file://.../dist/browser/index.html`.
 
+### Build Desktop
 ```bash
-ng test
+npm run dist
 ```
+Artefactos en `dist/electron/`.
 
-## Running end-to-end tests
+### Auto-update
+- Actívalo con `ENABLE_AUTO_UPDATE=1` en producción.
+- Requiere `publish` configurado (p. ej. GitHub) + `GH_TOKEN` en CI/entorno.
 
-For end-to-end (e2e) testing, run:
+### CI (GitHub Actions)
+- Workflow `Release Desktop` que publica artefactos para Win/macOS/Linux al hacer push de tag `v*.*.*`.
 
-```bash
-ng e2e
-```
+---
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## Estructura
+- `app/app-shell.ts` (layout con sidebar + router)
+- `features/chat/*` (page, list, input, toolbar)
+- `shared/services/*` (`chat.ts` hace streaming/draft/commit)
+- `shared/markdown/md-view.ts` (Markdown + highlight + copiar)
+- `shared/stream/*` (SSE/Fetch/mock)
+- `server/server.js` (endpoints de ejemplo)
+- `electron/*` (main/preload + assets)
+- `.github/workflows/release.yml` (CI)

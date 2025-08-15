@@ -1,0 +1,43 @@
+appId: com.example.chatgptclone
+productName: ChatGPT Clone
+directories:
+  output: dist/electron
+  buildResources: electron/assets
+files:
+  - dist/browser/**
+  - electron/**
+extraResources:
+  - from: server
+    to: server
+    filter:
+      - "**/*"
+asar: true
+mac:
+  category: public.app-category.developer-tools
+  target:
+    - dmg
+    - zip
+  hardenedRuntime: true
+  entitlements: null
+  entitlementsInherit: null
+win:
+  target:
+    - nsis
+    - zip
+  artifactName: "${productName}-Setup-${version}.${ext}"
+  publisherName: "Your Company"
+nsis:
+  oneClick: false
+  perMachine: false
+  allowElevation: true
+  allowToChangeInstallationDirectory: true
+linux:
+  target:
+    - AppImage
+    - deb
+  category: Development
+publish:
+  - provider: github
+    owner: your-org
+    repo: chatgpt-clone
+    releaseType: draft

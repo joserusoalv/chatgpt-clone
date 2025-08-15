@@ -1,6 +1,15 @@
 import { bootstrapApplication } from '@angular/platform-browser';
-import { appConfig } from './app/app.config';
-import { App } from './app/app';
+import { provideRouter } from '@angular/router';
+import { provideHttpClient } from '@angular/common/http';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { AppShell } from './app/app-shell';
+import { APP_ROUTES } from './app.routes';
 
-bootstrapApplication(App, appConfig)
-  .catch((err) => console.error(err));
+bootstrapApplication(AppShell, {
+  providers: [
+    provideRouter(APP_ROUTES),
+    provideHttpClient(),
+    provideAnimations(),
+    // provideExperimentalZonelessChangeDetection(),
+  ],
+}).catch(err => console.error(err));

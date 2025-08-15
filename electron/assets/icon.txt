@@ -1,0 +1,1 @@
+Place your app icons here: icon.icns (mac), icon.ico (win), and PNGs for linux.

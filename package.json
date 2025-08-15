@@ -1,14 +1,31 @@
 {
-  "name": "chatgpt-clone",
-  "version": "0.0.0",
+  "name": "chatgpt-clone-desktop",
+  "version": "0.1.0",
+  "description": "ChatGPT Clone — Angular 20 + Electron + Auto-update + Streaming SSE/Fetch",
+  "author": "Tu Nombre <tu.email@example.com>",
+  "private": true,
+  "main": "electron/main.js",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "//---------------- Dev ----------------": "",
+    "dev:server": "node server/server.js",
+    "dev:web": "ng serve --proxy-config proxy.conf.json",
+    "dev:electron": "cross-env ANGULAR_URL=http://localhost:4200 electron ./electron/main.js",
+    "dev": "concurrently \"npm:dev:server\" \"npm:dev:web\" \"npm:dev:electron\"",
+    "//---------------- Build Desktop ----------------": "",
+    "build:web": "ng build --configuration production",
+    "build:electron": "cp -r electron dist && cp -r server dist && echo 'ok'",
+    "dist": "npm run build:web && electron-builder -c electron-builder.yml",
+    "//---------------- Lint & Test ----------------": "",
+    "lint": "ng lint",
+    "e2e": "ng e2e",
+    "//---------------- Release CI ----------------": "",
+    "release": "npm run dist"
   },
-  "private": true,
   "dependencies": {
     "@angular/common": "^20.0.0",
     "@angular/compiler": "^20.0.0",
@@ -18,7 +35,9 @@
     "@angular/router": "^20.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
-    "zone.js": "~0.15.0"
+    "zone.js": "~0.15.0",
+    "highlight.js": "^11.9.0",
+    "marked": "^12.0.2"
   },
   "devDependencies": {
     "@angular/build": "^20.0.0",
@@ -31,6 +50,70 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
-    "typescript": "~5.8.2"
+    "typescript": "~5.8.2",
+    "concurrently": "^8.2.2",
+    "cross-env": "^7.0.3",
+    "electron": "^30.0.0",
+    "electron-builder": "^24.13.3",
+    "electron-updater": "^6.2.1",
+    "wait-on": "^7.2.0"
+  },
+  "build": {
+    "appId": "com.example.chatgptclone",
+    "productName": "ChatGPT Clone",
+    "directories": {
+      "output": "dist/electron",
+      "buildResources": "electron/assets"
+    },
+    "files": [
+      "dist/browser/**",
+      "electron/**"
+    ],
+    "extraResources": [
+      {
+        "from": "server",
+        "to": "server",
+        "filter": [
+          "**/*"
+        ]
+      }
+    ],
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "your-org",
+        "repo": "chatgpt-clone",
+        "releaseType": "draft"
+      }
+    ],
+    "mac": {
+      "category": "public.app-category.developer-tools",
+      "target": [
+        "dmg",
+        "zip"
+      ],
+      "hardenedRuntime": true
+    },
+    "win": {
+      "target": [
+        "nsis",
+        "zip"
+      ],
+      "artifactName": "${productName}-Setup-${version}.${ext}",
+      "publisherName": "Your Company"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowElevation": true,
+      "allowToChangeInstallationDirectory": true
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "category": "Development"
+    }
   }
 }
