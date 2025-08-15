@@ -1,5 +1,5 @@
+import { StreamOptions, Transport } from '../models/transport';
 import { SSE_ENDPOINT } from './config';
-import { StreamOptions, Transport } from './transport';
 
 export class SseTransport implements Transport {
   start(opts: StreamOptions): void {

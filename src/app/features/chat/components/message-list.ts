@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { MdView } from '../../shared/markdown/md-view';
-import { Message } from '../../shared/models/message';
+import { Message } from '../../../core/models/message';
+import { MdView } from '../../../shared/markdown/md-view';
 
 @Component({
   standalone: true,

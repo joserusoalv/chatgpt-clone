@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { Agents } from '../../shared/services/agents';
+import { Agents } from '../core/services/agents';
 
 @Component({
   selector: 'app-sidebar',

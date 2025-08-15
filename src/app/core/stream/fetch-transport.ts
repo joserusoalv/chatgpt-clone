@@ -1,4 +1,4 @@
-import { Transport, StreamOptions } from './transport';
+import { StreamOptions, Transport } from '../models/transport';
 import { FETCH_ENDPOINT } from './config';
 
 export class FetchTransport implements Transport {

@@ -5,8 +5,8 @@ import {
   inject,
 } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { Theme } from '../shared/services/theme';
-import { Sidebar } from './sidebar/sidebar';
+import { Theme } from '../core/services/theme';
+import { Sidebar } from './sidebar';
 
 @Component({
   selector: 'app-shell',
