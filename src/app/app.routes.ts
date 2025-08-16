@@ -3,8 +3,7 @@ import { Routes } from '@angular/router';
 export const routes: Routes = [
   {
     path: '',
-    loadComponent: () =>
-      import('./features/chat/conversation/chat.page').then((m) => m.ChatPage),
+    loadChildren: () => import('./features/chat/chat.routes'),
   },
   { path: '**', redirectTo: '' },
 ];

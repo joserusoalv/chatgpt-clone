@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { Chat } from '../../../core/services/chat';
 import { ChatToolbar } from './components/chat-toolbar';
 import { MessageInput } from './components/message-input';
 import { MessageList } from './components/message-list';
+import { ChatApi } from './services/chat-api';
 
 @Component({
   standalone: true,
@@ -22,7 +22,7 @@ import { MessageList } from './components/message-list';
   `,
 })
 export class ChatPage {
-  #chat = inject(Chat);
+  #chat = inject(ChatApi);
 
   protected _messages = this.#chat.messages;
   protected _draft = this.#chat.draft;

@@ -1,19 +1,20 @@
-import { Injectable, computed, signal } from '@angular/core';
-import { Message } from '../models/message';
-import { Transport } from '../models/transport';
-import { STREAM_TRANSPORT } from '../stream/config';
-import { FetchTransport } from '../stream/fetch-transport';
-import { SseTransport } from '../stream/sse-transport';
+import { Injectable, signal } from '@angular/core';
+import { Transport } from '../../../../core/models/transport.model';
+import { STREAM_TRANSPORT } from '../../../../core/stream/config';
+import { FetchTransport } from '../../../../core/stream/fetch-transport';
+import { SseTransport } from '../../../../core/stream/sse-transport';
+import { Message } from '../models/message.model';
 
-@Injectable({ providedIn: 'root' })
-export class Chat {
+@Injectable()
+export class ChatApi {
   #messages = signal<Message[]>([]);
   #draft = signal<string | null>(null);
+
   #controller: AbortController | null = null;
   #transport: Transport;
 
-  messages = computed(() => this.#messages());
-  draft = computed(() => this.#draft());
+  messages = this.#messages.asReadonly();
+  draft = this.#draft.asReadonly();
 
   constructor() {
     this.#transport =

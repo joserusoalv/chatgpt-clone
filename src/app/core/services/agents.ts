@@ -1,5 +1,5 @@
-import { computed, Injectable, signal } from '@angular/core';
-import { Agent } from '../models/agent';
+import { Injectable, signal } from '@angular/core';
+import { Agent } from '../models/agent.model';
 
 @Injectable({ providedIn: 'root' })
 export class Agents {
@@ -9,8 +9,8 @@ export class Agents {
   ]);
   #currentId = signal<string>('default');
 
-  list = computed(() => this.#agents());
-  currentId = computed(() => this.#currentId());
+  list = this.#agents.asReadonly();
+  currentId = this.#currentId.asReadonly();
 
   setCurrent(id: string) {
     this.#currentId.set(id);

@@ -1,4 +1,4 @@
-import { StreamOptions, Transport } from '../models/transport';
+import { StreamOptions, Transport } from '../models/transport.model';
 import { SSE_ENDPOINT } from './config';
 
 export class SseTransport implements Transport {
