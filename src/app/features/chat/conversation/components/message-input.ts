@@ -29,8 +29,8 @@ import { FormsModule } from '@angular/forms';
   `,
 })
 export class MessageInput {
-  protected _text = signal('');
-  send = output<string>();
+  protected readonly _text = signal('');
+  readonly send = output<string>();
 
   protected _submit(e: Event) {
     e.preventDefault();

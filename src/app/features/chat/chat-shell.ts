@@ -29,10 +29,12 @@ import { Sidebar } from './sidebar/sidebar';
       .sidebar {
         border-right: 1px solid var(--border);
         background: var(--surface-1);
+        overflow: hidden; /* Asegura que el sidebar no haga scroll */
       }
       .content {
         background: var(--surface-0);
         color: var(--text);
+        overflow: auto; /* <-- Permite el scroll solo en este contenedor */
       }
     `,
   ],
