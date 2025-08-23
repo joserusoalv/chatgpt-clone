@@ -1,0 +1,18 @@
+#!/usr/bin/env sh
+set -e
+
+if git rev-parse --abbrev-ref @{upstream} >/dev/null 2>&1; then
+  BASE=$(git merge-base HEAD @{upstream})
+  RANGE="$BASE...HEAD"
+else
+  RANGE="$(git rev-list --max-parents=0 HEAD)...HEAD"
+fi
+
+CHANGED_CODE_FILES=$(git diff --name-only $RANGE | grep -E '\.(ts|html|scss)$' || true)
+
+if [ -n "$CHANGED_CODE_FILES" ]; then
+  echo "Cambios en la rama local → corriendo tests"
+  npm run ci:test
+else
+  echo "Sin cambios relevantes en la rama local → se omiten tests"
+fi

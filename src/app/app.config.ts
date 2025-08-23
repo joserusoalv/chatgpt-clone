@@ -7,6 +7,9 @@ import { provideRouter } from '@angular/router';
 
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import Aura from '@primeuix/themes/aura';
+import { providePrimeNG } from 'primeng/config';
 import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
@@ -16,5 +19,11 @@ export const appConfig: ApplicationConfig = {
     provideAnimations(),
     provideZonelessChangeDetection(),
     provideBrowserGlobalErrorListeners(),
+    provideAnimationsAsync(),
+    providePrimeNG({
+      theme: {
+        preset: Aura,
+      },
+    }),
   ],
 };
