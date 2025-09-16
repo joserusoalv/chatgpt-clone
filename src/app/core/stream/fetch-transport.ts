@@ -20,7 +20,7 @@ export class FetchTransport implements Transport {
       }
       opts.onDone();
     } catch (e) {
-      if ((e as any).name === 'AbortError') return;
+      if ((e as Error).name === 'AbortError') return;
       opts.onError(e);
     }
   }

@@ -8,7 +8,7 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
   standalone: true,
-  selector: 'message-input',
+  selector: 'app-message-input',
   imports: [FormsModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `

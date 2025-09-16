@@ -14,6 +14,7 @@ import hljsRaw from 'highlight.js';
 import { Marked } from 'marked';
 import { markedHighlight } from 'marked-highlight';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const hljs: any = (hljsRaw as any)?.default ?? hljsRaw;
 
 let mdEngine: Marked | null = null;
@@ -33,6 +34,7 @@ function getMarked(): Marked {
           return code;
         }
       },
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     }) as any
   );
   return mdEngine;
@@ -53,7 +55,7 @@ function normalizeFences(src: string): string {
 
 @Component({
   standalone: true,
-  selector: 'md-view',
+  selector: 'app-md-view',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `<div class="md" [innerHTML]="_safeHtml()"></div>`,
   styles: [
@@ -91,7 +93,7 @@ export class MdView implements OnDestroy {
   live = input(false);
 
   _safeHtml = signal<SafeHtml | string>('');
-  #cleanupFns: Array<() => void> = [];
+  #cleanupFns: (() => void)[] = [];
 
   constructor() {
     const engine = getMarked();
@@ -116,7 +118,9 @@ export class MdView implements OnDestroy {
     for (const fn of this.#cleanupFns.splice(0)) {
       try {
         fn();
-      } catch {}
+      } catch {
+        console.error('Error during cleanup in MdView');
+      }
     }
   }
 
@@ -124,7 +128,7 @@ export class MdView implements OnDestroy {
     const host = this.#host.nativeElement.querySelector('.md');
     if (!host) return;
 
-    host.querySelectorAll('pre').forEach((pre: any) => {
+    host.querySelectorAll('pre').forEach((pre: HTMLElement) => {
       if (pre.querySelector('button.copy')) return;
 
       const btn = document.createElement('button');

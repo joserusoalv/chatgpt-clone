@@ -17,7 +17,7 @@ import { fromEvent, throttleTime } from 'rxjs'; // Importa throttleTime
 
 @Component({
   standalone: true,
-  selector: 'message-list',
+  selector: 'app-message-list',
   imports: [MdView],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
@@ -25,12 +25,12 @@ import { fromEvent, throttleTime } from 'rxjs'; // Importa throttleTime
       @for (m of messages(); track m.id) {
       <div class="msg" [class.assistant]="m.role === 'assistant'">
         <div class="role">{{ m.role }}</div>
-        <md-view [markdown]="m.content" />
+        <app-md-view [markdown]="m.content" />
       </div>
       } @if (draft()) {
       <div class="msg assistant">
         <div class="role">assistant</div>
-        <md-view [markdown]="draft()!" [live]="true" />
+        <app-md-view [markdown]="draft()!" [live]="true" />
       </div>
       }
       <div #bottomSentinel></div>

@@ -12,8 +12,12 @@ import { Agents } from '../../../core/services/agents';
     </header>
 
     <section class="px-3">
-      <label class="text-xs block mb-1">Agente</label>
-      <select [value]="_currentId()" (change)="set($any($event.target).value)">
+      <label for="select-agent" class="text-xs block mb-1">Agente</label>
+      <select
+        id="select-agent"
+        [value]="_currentId()"
+        (change)="set($any($event.target).value)"
+      >
         @for (a of _agents(); track a.id) {
         <option [value]="a.id">{{ a.name }}</option>
         }

@@ -9,7 +9,7 @@ import { Theme } from '../../core/services/theme';
 import { Sidebar } from './sidebar/sidebar';
 
 @Component({
-  selector: 'chat-shell',
+  selector: 'app-chat-shell',
   standalone: true,
   imports: [RouterOutlet, Sidebar],
   changeDetection: ChangeDetectionStrategy.OnPush,

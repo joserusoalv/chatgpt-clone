@@ -7,17 +7,17 @@ import { ChatApi } from './services/chat-api';
 @Component({
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  selector: 'chat-page',
+  selector: 'app-chat-page',
   imports: [MessageList, MessageInput, ChatToolbar],
   template: `
     <section class="h-full grid grid-rows-[auto_1fr_auto]">
-      <chat-toolbar (cancel)="cancel()" />
-      <message-list
+      <app-chat-toolbar (cancelProgress)="cancel()" />
+      <app-message-list
         [messages]="_messages()"
         [draft]="_draft()"
         class="min-h-0"
       />
-      <message-input (send)="_send($event)" />
+      <app-message-input (send)="_send($event)" />
     </section>
   `,
 })
