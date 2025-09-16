@@ -17,7 +17,7 @@ export class Agents {
 
     localStorage.setItem(
       'agents',
-      JSON.stringify({ agents: this.#agents(), currentId: this.#currentId() })
+      JSON.stringify({ agents: this.#agents(), currentId: this.#currentId() }),
     );
   }
   startNewSession() {

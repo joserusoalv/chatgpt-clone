@@ -35,7 +35,7 @@ function getMarked(): Marked {
         }
       },
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    }) as any
+    }) as any,
   );
   return mdEngine;
 }
@@ -61,8 +61,9 @@ function normalizeFences(src: string): string {
   styles: [
     `
       .md :is(pre, code) {
-        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas,
-          'Liberation Mono', monospace;
+        font-family:
+          ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono',
+          monospace;
       }
       .md pre {
         position: relative;

@@ -19,7 +19,7 @@ import { Agents } from '../../../core/services/agents';
         (change)="set($any($event.target).value)"
       >
         @for (a of _agents(); track a.id) {
-        <option [value]="a.id">{{ a.name }}</option>
+          <option [value]="a.id">{{ a.name }}</option>
         }
       </select>
     </section>

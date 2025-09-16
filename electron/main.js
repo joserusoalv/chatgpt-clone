@@ -38,7 +38,7 @@ function startEmbeddedServer() {
     stdio: "inherit",
   });
   serverProc.on("exit", (code) =>
-    console.log("[embedded-server] exited", code)
+    console.log("[embedded-server] exited", code),
   );
 }
 function stopEmbeddedServer() {
@@ -73,7 +73,7 @@ function createWindow() {
         process.resourcesPath,
         "dist",
         "browser",
-        "index.html"
+        "index.html",
       ),
     });
     win.loadURL(indexPath);

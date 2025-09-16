@@ -9,7 +9,7 @@ export class Theme {
     const doc = document.documentElement;
     const theme = this.#settings.theme();
     const prefersDark = window.matchMedia?.(
-      '(prefers-color-scheme: dark)'
+      '(prefers-color-scheme: dark)',
     ).matches;
 
     const isDark = theme === 'dark' || (theme === 'system' && prefersDark);

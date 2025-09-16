@@ -21,26 +21,26 @@ export class ChatApi {
       STREAM_TRANSPORT === 'sse'
         ? new SseTransport()
         : STREAM_TRANSPORT === 'fetch'
-        ? new FetchTransport()
-        : {
-            start: async ({ onChunk, onDone, signal }) => {
-              const chunks = [
-                'Claro, ',
-                'vamos ',
-                'a ',
-                'ello.\n\n',
-                '```ts\n',
-                'console.log("hola")\n',
-                '```\n',
-              ];
-              for (const c of chunks) {
-                if (signal.aborted) return;
-                await new Promise((r) => setTimeout(r, 120));
-                onChunk(c);
-              }
-              onDone();
-            },
-          };
+          ? new FetchTransport()
+          : {
+              start: async ({ onChunk, onDone, signal }) => {
+                const chunks = [
+                  'Claro, ',
+                  'vamos ',
+                  'a ',
+                  'ello.\n\n',
+                  '```ts\n',
+                  'console.log("hola")\n',
+                  '```\n',
+                ];
+                for (const c of chunks) {
+                  if (signal.aborted) return;
+                  await new Promise((r) => setTimeout(r, 120));
+                  onChunk(c);
+                }
+                onDone();
+              },
+            };
   }
 
   send(text: string) {
